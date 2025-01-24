@@ -2,22 +2,27 @@
 
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
 import SuaLista from './SuaLista.vue';
+import {ref} from 'vue';
+
+
 
 export default{
-        data(){
-            return{
-                ingredientes: [] as string[]
-            };
+        setup(){
+          const ingredientes = ref<string[]>([]);
+          function adicionarIngrediente(ingrediente:string){
+            ingredientes.value.push(ingrediente)
+          }
+          function removerIngrediente(ingrediente:string){
+            ingredientes.value.filter(iLista => ingrediente !== iLista);
+          }
+          return{
+            ingredientes,
+            adicionarIngrediente,
+            removerIngrediente
+          }
         },
-        components: { SelecionarIngredientes, SuaLista },
-        methods:{
-          adicionarIngrediente(ingrediente:string){
-            this.ingredientes.push(ingrediente)
-          },
-          removerIngrediente(ingrediente:string){
-            this.ingredientes = this.ingredientes.filter(iLista => ingrediente !== iLista)
-          },
-        }
+        components: {SelecionarIngredientes, SuaLista}
+
     }
 </script>
 
